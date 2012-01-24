@@ -1,12 +1,20 @@
 # Requirements for the Workshop
 
-1. Install Git
-2. Install Node.js >= v0.4.2
+1. [Install Git](http://help.github.com/set-up-git-redirect)
+
+2. [Install Node.js](http://nodejs.org/#download)
+
 3. Install NPM
+
+    curl http://npmjs.org/install.sh | sh
+
 4. Clone this repository
-	git clone git://github.com/glesperance/node-rocket-workshop.git
-5. Install the required NPM packages. (You need to be in the git directory created in 4)
-	npm update
+
+    git clone git://github.com/glesperance/node-rocket-workshop.git
+	
+5. Install the required NPM packages. (You need to be in the git directory created in step 4)
+
+    npm update
 	
 # How to Prepare Yourself for the Workshop
 
