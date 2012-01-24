@@ -19,3 +19,6 @@ CVS
 
 #TextMate
 *.tmproj
+
+#node.js
+node_modules/*
