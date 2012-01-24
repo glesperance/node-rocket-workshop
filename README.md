@@ -51,4 +51,3 @@ exported now.js object :
 
   * _destroy_
     Calls `callback` with an object containing the id of any deleted paste.
-
