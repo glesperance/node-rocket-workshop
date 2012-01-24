@@ -3,54 +3,70 @@ define(
     'underscore'
   , 'backbone'
   
-  , 'models/paste'
-  
-  , 'now'
+  , 'templates/paste_item_tmpl.jade'
   ]
-, function(_, Backbone, Paste) {
-  
-  var collection= {};
+, function(_, Backbone, PasteItemTmpl) {
 
+  var view = {};
+  
   /* ======================================================================= *
    *  ATTRIBUTES                                                             *
    * ======================================================================= */
-  
-  collection.url = '/pastes';
-  
-  collection.model = Paste;
+
+  view.tagName = 'tr';
+
+  /* ======================================================================= *
+   *  EVENTS                                                                 *
+   * ======================================================================= */
+  view.events = {
+    'click .delete' : 'doDelete'
+  };
   
   /* ======================================================================= *
    *  EVENT HANDLERS                                                         *
    * ======================================================================= */
   
-  collection.pasteAdded = function(paste) {
-    this.add(paste);
+  view.modelDestroyed = function() {
+    this.remove();
+  };
+   
+  view.doDelete = function() {
+    this.model.destroy();
   };
   
   /* ======================================================================= *
    *  CLASS PUBLIC METHODS                                                   *
    * ======================================================================= */
+   
+  view.render = function() {
+    
+    var locals  = _.extend(
+                      {showUrl : this.model.url() }
+                    , this.model.attributes
+                  )
+      ;
+      
+    this.$el.html(PasteItemTmpl(locals));
+    
+    this.model.bind('destroy', this.modelDestroyed);
+    
+    return this;
+  };
   
   /* ======================================================================= *
-   *  PASTE COLLECTION CONSTRUCTOR & INITIALIZATION                          *
+   *  PASTE ITEM VIEW CONSTRUCTOR & INITIALIZATION                           *
    * ======================================================================= */
   
-  collection.initialize = function() {
+  view.initialize = function() {
     
-    var that = this;
-    
-    //Binds all of the object's method context to 'this'.
     _.bindAll(this);
     
-    now.ready(function() {
-      now.pasteCollectionApi && now.pasteCollectionApi.on('add', that.pasteAdded);
-    });
-    
+    this.$el = $(this.el);
   };
   
   /* ======================================================================= */
   /* ======================================================================= */
   
-  return Backbone.Collection.extend(collection);
+  return Backbone.View.extend(view);
   
 });

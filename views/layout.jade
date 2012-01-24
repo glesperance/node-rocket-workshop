@@ -6,48 +6,51 @@
 //if IE 8
   <html class="no-js ie8 oldie" lang="en">
 //[if gt IE 8]><!
-html(class='no-js', lang='en')
+html(xmlns:fb="https://www.facebook.com/2008/fbml", class='no-js', lang='en')
   //<![endif]
   head
     meta(charset='utf-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no')
     
-    title
+    title Node-Rocket Workshop #1
+    
     meta(name='description', content='')
     meta(name='author', content='')
-    
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    
-    link(rel='stylesheet', href='css/style.css')
-    
-    //-- { Rocket.js JS Header} -----------------
-    - if (typeof boot_options === 'undefined')
-       !=rocket.header(controller)
-    - else
-       !=rocket.header(controller, boot_options)
-    //-------------------------------------------
-    
-  body
-    #container
-      header
-      #main(role='main')
-        !=body
-      footer
 
-    //-- { Rocket.js JS Footer} -----------------
+    link(rel="shortcut icon",href="/static/favicon.ico")
+ 
+    link(rel='stylesheet', href='/css/style.css')
+
     - if (typeof boot_options === 'undefined')
-       !=rocket.footer(controller)
+      !=rocket.header(controller)
     - else
-       !=rocket.footer(controller, boot_options)
-    //-------------------------------------------
+      !=rocket.header(controller, boot_options)
+
+body()
+
+  #container
+
+    #header
+      #header-wrapper
+        a(href='/')
+          h3 Node-Rocket Workshop #1
     
-    script
-      window._gaq = [['_setAccount','UAXXXXXXXX1'],['_trackPageview'],['_trackPageLoadTime']];
-      Modernizr.load({
-        load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-      });
+    #content
+      #outter
+        #inner
+          #inner2
+            !=body
       
-        
-    //if lt IE 7
-      script(src='//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js', defer)
-      script(defer) window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})
+     
+    #footer
+
+     - if (typeof boot_options === 'undefined')
+       !=rocket.footer(controller)
+     - else
+       !=rocket.footer(controller, boot_options)
+
+     - if (typeof disableChromeFrameInstall === 'undefined')
+
+       //if lt IE 6
+         script(src='//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js', defer)
+         script(defer) window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})

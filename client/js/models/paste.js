@@ -7,13 +7,13 @@ define(
   ]
 , function(_, Backbone) {
   
-  var collection= {};
+  var model = {};
   
   /* ======================================================================= *
    *  EVENT HANDLERS                                                         *
    * ======================================================================= */
   
-  collection.destroyed = function() {
+  model.destroyed = function() {
     this.destroy();
   };
   
@@ -24,10 +24,10 @@ define(
   
   
   /* ======================================================================= *
-   *  PASTE MODEL CONSTRUCTOR & INITIALIZATION                          *
+   *  PASTE MODEL CONSTRUCTOR & INITIALIZATION                               *
    * ======================================================================= */
   
-  collection.initialize = function() {
+  model.initialize = function() {
     
     var that = this;
     
@@ -36,9 +36,8 @@ define(
     
     if (!this.isNew()) {
       now.ready(function() {
-        
-        now.pasteCollectionApi.get(that.get('id'), function(err, pasteObj) {
-          pasteObj && pasteObj.on('destroy', that.destroyed);
+        now.pasteCollectionApi.on('destroy', function(pasteObj) {
+          pasteObj.id === that.id && that.destroy();
         });
       });
     }
@@ -48,6 +47,6 @@ define(
   /* ======================================================================= */
   /* ======================================================================= */
   
-  return collection;
+  return Backbone.Model.extend(model);
   
 });

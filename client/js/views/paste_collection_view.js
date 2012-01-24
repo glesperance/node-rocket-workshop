@@ -3,54 +3,65 @@ define(
     'underscore'
   , 'backbone'
   
-  , 'models/paste'
-  
-  , 'now'
+  , 'views/paste_item_view'
   ]
-, function(_, Backbone, Paste) {
-  
-  var collection= {};
+, function(_, Backbone, PasteItemView) {
+
+  var view = {};
 
   /* ======================================================================= *
-   *  ATTRIBUTES                                                             *
+   *  EVENTS                                                                 *
    * ======================================================================= */
-  
-  collection.url = '/pastes';
-  
-  collection.model = Paste;
   
   /* ======================================================================= *
    *  EVENT HANDLERS                                                         *
    * ======================================================================= */
-  
-  collection.pasteAdded = function(paste) {
-    this.add(paste);
-  };
+  view.pasteAdded = function(paste) {
+    
+    var pasteItemView = new PasteItemView({ model : paste })
+      ;
+    
+    this.$el.append(pasteItemView.render().el);
+  }
   
   /* ======================================================================= *
    *  CLASS PUBLIC METHODS                                                   *
    * ======================================================================= */
-  
-  /* ======================================================================= *
-   *  PASTE COLLECTION CONSTRUCTOR & INITIALIZATION                          *
-   * ======================================================================= */
-  
-  collection.initialize = function() {
+   
+  view.render = function() {
     
-    var that = this;
+    var that = this
+      ;
     
-    //Binds all of the object's method context to 'this'.
-    _.bindAll(this);
+    //this.$el.html(PulseCollectionTmpl());
     
-    now.ready(function() {
-      now.pasteCollectionApi && now.pasteCollectionApi.on('add', that.pasteAdded);
+    this.collection.each(function(paste) {
+      var pasteItemView = new PasteItemView({ model : paste})
+        ;
+        
+      that.$el.append(pasteItemView.render().el);
     });
     
+  };
+  
+  /* ======================================================================= *
+   *  PASTE ITEM VIEW CONSTRUCTOR & INITIALIZATION                           *
+   * ======================================================================= */
+  
+  view.initialize = function(options) {
+    
+    _.bindAll(this);
+    
+    this.collection = options.collection;
+    
+    this.$el = $(this.el);
+    
+    this.collection.bind('add', this.pasteAdded);
   };
   
   /* ======================================================================= */
   /* ======================================================================= */
   
-  return Backbone.Collection.extend(collection);
+  return Backbone.View.extend(view);
   
 });
