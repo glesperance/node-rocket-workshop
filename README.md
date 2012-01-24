@@ -5,17 +5,17 @@
 2. [Install Node.js](http://nodejs.org/#download)
 
 3. Install NPM
-```
-    curl http://npmjs.org/install.sh | sh
-```
+
+        curl http://npmjs.org/install.sh | sh
+
 4. Clone this repository
 
-    git clone git://github.com/glesperance/node-rocket-workshop.git
+        git clone git://github.com/glesperance/node-rocket-workshop.git
 	
 5. Install the required NPM packages. (You need to be in the git directory created in step 4)
-```
-    npm update
-```	
+
+        npm update
+
 # How to Prepare Yourself for the Workshop
 
 1. Read the [Rocket.js README](https://github.com/glesperance/node-rocket/blob/master/README.md)
