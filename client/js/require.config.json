@@ -1,0 +1,11 @@
+{ 
+  "baseUrl" 	: "/js"
+, "waitSeconds" : "200"
+, "priority" 	: ["jquery"]
+, "paths" 		: {
+	  "jquery" 		: "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min"
+	, "jqueryui"    : "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/jquery-ui.min" 
+	, "underscore"	: "/vendors/underscore-1.2.1"
+  	, "backbone"	: "/vendors/backbone-0.5.3"
+	}
+}
